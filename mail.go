@@ -41,10 +41,10 @@ func New(cfg *Config) *Client {
 func (c *Client) Send(to string, message string, subject string, contentType string) error {
 	auth := smtp.PlainAuth(c.identity, c.username, c.password, c.host)
 
-	msg := []byte(fmt.Sprintf(
-		"From: %s\r\nTo: %s\r\nSubject: %s\n%s\n\n%s\r\n",
+	msg := fmt.Appendf(nil,
+		"From: %s\r\nTo: %s\r\nSubject: %s\nContent-Type: %s\n\n%s\r\n",
 		c.username, to, subject, contentType, message,
-	))
+	)
 
 	return smtp.SendMail(fmt.Sprintf("%s:%d", c.host, c.port), auth, c.username, []string{to}, msg)
 }
@@ -54,7 +54,7 @@ func (c *Client) Mailing(emails []string, message string, subject string, conten
 	auth := smtp.PlainAuth(c.identity, c.username, c.password, c.host)
 
 	msg := []byte(fmt.Sprintf(
-		"From: %s\r\nSubject: %s\n%s\n\n%s\r\n",
+		"From: %s\r\nSubject: %s\nContent-Type: %s\n\n%s\r\n",
 		c.username, subject, contentType, message,
 	))
 
