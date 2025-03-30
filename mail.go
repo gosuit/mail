@@ -8,11 +8,11 @@ import (
 // Config holds the configuration for the email client.
 // It includes fields for the mail server host, port, username, password, and identity.
 type Config struct {
-	Host     string `yaml:"host"     env:"MAIL_HOST"`     // The SMTP server hostname
-	Port     int    `yaml:"port"     env:"MAIL_PORT"`     // The SMTP server port
-	Username string `yaml:"username" env:"MAIL_USERNAME"` // The username for authentication
-	Password string `env:"MAIL_PASSWORD" `                // The password for authentication
-	Identity string `yaml:"identity" env:"MAIL_IDENTITY"` // The identity of the sender
+	Host     string `confy:"host"     yaml:"host"     json:"host"     toml:"host"     env:"MAIL_HOST"`     // The SMTP server hostname
+	Port     int    `confy:"port"     yaml:"port"     json:"port"     toml:"port"     env:"MAIL_PORT"`     // The SMTP server port
+	Username string `confy:"username" yaml:"username" json:"username" toml:"username" env:"MAIL_USERNAME"` // The username for authentication
+	Password string `confy:"password" env:"MAIL_PASSWORD" `                                                // The password for authentication
+	Identity string `confy:"identity" yaml:"identity" json:"identity" toml:"identity" env:"MAIL_IDENTITY"` // The identity of the sender
 }
 
 // Client represents an email client that can send emails using the specified configuration.
